@@ -1,0 +1,226 @@
+<!doctype html>
+ <html lang='ja'>
+<head>
+<meta charset='utf-8'>
+<title>my first pdfmake example</title>
+  <script src='bower_components/pdfmake/build/pdfmake.min.js'></script>
+  <script src='bower_components/pdfmake/build/vfs_fonts.js'></script>
+</head>
+<body>
+  <button onClick="onclicks();">PDFを開く</button>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+var index = 0;
+var white = ["CPWH01L", "", "CPWH01L", "CPWH01L", "", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "", "CPWH01L", "CPWH01L",
+"", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "", "CPWH01L", "CPWH01L", "", "CPWH01L", "CPWH01L", "", "CPWH01L", "", "", "CPWH01L", "CPWH01L",
+"CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "", "CPWH01L", "CPWH01L", "", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L",
+"CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "", "CPWH01L", "", "", "CPWH01L", "", "CPWH01L",
+"CPWH01L", "CPWH01L", "CPWH01L", "", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L", "", "CPWH01L", "CPWH01L", "CPWH01L", "CPWH01L",
+"CPWH01L", "CPWH01L"
+]
+console.log("時計白は" + white.length)
+
+var blacknum = ["","1", "", "", "1", "", "", "", "", "1", "", "1", "", "", "", "", "", "", "", "1", "", "1", "1",
+"", "", "1", "", "1", "1", "", "", "", "", "", "", "", "1", "", "1", "", "", "1", "", "", "", "", "", "", "1",
+"1", "", "1", "", "", "", "1", "", "1", "1", "2", "1", "", "", "", "", "1", "", "", "", "", "",
+"", "1", "", "", "", "2", "5", "6"
+]
+console.log("時計黒の個数は" + blacknum.length)
+
+var black = ["","CPBK01L", "", "", "CPBK01L", "", "", "", "", "CPBK01L", "", "CPBK01L", "", "", "", "", "", "", "", "CPBK01L", "",
+"CPBK01L", "CPBK01L", "", "", "CPBK01L", "", "CPBK01L", "CPBK01L", "", "", "", "", "", "", "", "CPBK01L", "", "CPBK01L", "", "",
+"CPBK01L", "", "", "", "", "", "", "CPBK01L", "CPBK01L", "", "CPBK01L", "", "", "", "CPBK01L", "", "CPBK01L", "CPBK01L", "CPBK01L",
+"CPBK01L", "", "", "", "", "CPBK01L", "", "", "", "", "", "", "CPBK01L", "", "", "", "CPBK01L", "CPBK01L", "CPBK01L"
+]
+console.log("時計黒は" + black.length)
+
+var whitenum = ["1", "", "1", "1", "", "1", "1", "1", "1", "1", "1", "", "1", "1", "", "1", "1", "1", "1",
+"", "1", "1", "", "1", "1", "", "1", "", "", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "1", "1", "",
+ "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "1", "", "", "2", "", "1",
+ "1", "1", "1", "", "1", "1", "1", "1", "1", "1", "", "1", "1", "1", "4", "11", "5"
+]
+console.log("時計白の個数は" + whitenum.length)
+
+var belt = ["", "", "", "", "", "1", "1", "1", "1", "1", "1", "1", "", "", "", "", "1", "1", "", "1", "1",
+"1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
+ "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "1",
+ "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "", "", ""
+]
+console.log("ベルトは" + belt.length)
+
+var names = [
+  "Joo Hyung Park", "SeungJin Lee", "Kim Kyungwan", "DAEGUN LEE", "Park seungsub", "Ji Xiang",
+  "Matthew J Haffner", "Jonathan Pfng", "Jovi Fergie", "Ziv Arazi", "Faheem Farooq",
+  "Poh Yeh Tze", "Jang Hyunsoo", "Jeesoon Choi", "Younguk Kim", "Chun Sungmin", "Greg caires",
+  "Yan Zeng", "s", "Lim Han Liang Robin", "Sylvain Lanouette", "Marcin et Fils ( Henri Marcin )",
+  "Jeffrey Wei", "Zenco Corporate Services BV", "Robert Kievit", "James Hatch", "Eric Pratama Kurniawan",
+  "Nurhaliza Bt Md Ali", "Alexandra Espinosa", "Brian Nadler", "Mark Phelps", "VADYM TKACHENKO", "Paul Koerber",
+  "Gary Tan", "Rich Drab", "Amani Al-Julaibi", "Jacques Lepine", "Ringo Pang", "Matthew Cule", "Jakob Kargo Mortensen",
+  "Heidi Shaw", "Ken CK Mark", "Steve Harris", "Doug Konkle", "Kevin Sadikin", "Adrian Foo", "Mr Raymond Lim", "Dustin Fry",
+  "Richard Grimmel", "G. Untereker", "Andy Choo, Kann Finch", "Stefan H?lting", "David Huber",
+  "Elzbieta Babicz (Agencja celna Kozak)", "Michael Busch", "HASNAIN HAIDER", "Chris Elam", "Pamela Barnett",
+  "Seunghyeon Lee", "errol barclay", "Christopher Ponce de Leon", "Shiu Ka Kei", "Raina DeVries", "Deepak R. Ghosh",
+  "Jamie Rawlinson", "Daniel Brown", "R. Matthijssen", "NG SAI KIT", "Nicolas Engel", "S. A. Lacy", "Vladimir Tanascuk",
+  "iotec GmbH (Daniel Mentrup)", "Roi Gary", "Edwin P. Newell", "Martin Plith Christensen", "張育維", "Seongwon Son",
+  "Kim younghyun", "Lee hyundal"
+]
+console.log("名前数は" + names.length)
+var country = [
+  "korea Republic of", "korea Republic of", "korea Republic of", "korea Republic of", "korea Republic of", "Hong Kong",
+  "United States", "Hong Kong", "Indonesia", "United States", "United States", "Singapore", "korea Republic of", "korea Republic of",
+  "korea Republic of", "korea Republic of", "United States", "United States", "korea Republic of", "Singapore", "Canada", "Belgium",
+  "United States", "Netherlands", "Switzerland", "United States", "Singapore", "Malaysia", "Colombia", "United States", "United States",
+  "United States", "United States", "Malaysia", "United States", "United States", "Canada", "Hong Kong", "Spain", "Denmark", "United Kingdom",
+  "Singapore", "United Kingdom", "United States", "Singapore", "Singapore", "Malaysia", "United States", "Switzerland", "United States",
+  "Australia", "Germany", "United States", "Poland", "Germany", "Pakistan", "United States", "United States", "korea Republic of",
+  "Switzerland", "United States", "Hong Kong", "United States", "United States", "United Kingdom", "United States", "Netherlands",
+  "Hong Kong", "United States", "United States", "Serbia", "Germany", "United Kingdom", "United States", "Denmark", "Taiwan",
+  "korea Republic of", "korea Republic of", "korea Republic of"
+]
+console.log("国数は" + country.length)
+var city = ["Gyeonggi-do", "Busan", "Chongchungbuk-do", "Gyeonggi-do", "Seoul", "Hong Kong", "NJ", "Hong Kong", "DKI Jakarta", "NY", "NY", "", "Gyeonggi-do", "Gyeonggi-do", "Seoul", "Gyeonggi-do", "Maryland", "IL", "GYUNGGIDO", "", "QC", "Namur", "CA", "ZH", "Luzern", "CO", "", "Kuala Lumpur", "Santander", "WA", "PA", "CA", "CA", "Selangor", "IL", "NY", "QC", "", "Alicante", "Denmark", "", "Singapore", "Kent", "AR", "Singapore", "Singapore", "Malaysia", "TX", "ZH", "MN", "NSW", "Hessen", "CO", "Podkarpatskie wojewodstwo", "Rheinland-Pfalz", "", "NC", "NY", "Chungchungnamdo", "VD", "MO", "HONG KONG SAR", "IL", "NJ", "Berkshire", "PA", "", "HONG KONG", "NY", "CA", "Serbia", "Niedersachsen", "Hammersmith and Fulham", "KY", "Midtjylland", "New Taipei City", "Seoul", "Gyeonggi-do", "Seoul"
+]
+console.log("　しは" + city.length)
+var address1 = ["Gunpo995-901 Baekdoo Apt.244 Surisan-ro", "BusanGeumjeong-gu  Miju Bldg. B1 Floor 271 Geumgang-ro",
+"Guesan-gunUjinsanjeon 304Sari-muen Sadam-ri 870-88", "Yangju-siXi Apartment 202dong-1401ho78-12 Samsung-ro 38beon-gil",
+"SeoulMapo-guHanwha Obelisk APT.62333 Mapo-daero", "North Point6/F 633 King’s Road", "Montclair11 Pine St Apt 349",
+"Hong KongHappy ValleyFlat 2C The Broadville 4 Broadwood Road",
+"Kembangan Jakarta Baratbusiness park kebon jeruk Kencana Tower lantai 1(kantor pemasaran).Jl. Raya Meruya Ilir No.88",
+"New York200 Riverside Blvd Apt 3M", "East Setauket2 Woodchuck Ln", "SingaporeBlock 222 Ang Mo Kio Avenue 1 #02-715",
+"Seungnam-si Yeonkot-maeul Humancia 404-302Joongwon-gu Yeosu-dong", "Seongnam-siBundang-gu404-1503 226 Dongpangyo-ro ",
+"SeoulGangnamgu401 47-30 Samseongdong", "Gwangju-siSsangryung Greenbil 104-30244-8 Gyeongchung-daero 1480beon-gil",
+"Catonsville1904 Logwind Road", "Chicago3226 S Western Ave", "PAJUSANNEMAUL6DANJI 605-604CHUNGAMRO27", "SingaporeBlk 468 Segar Road #15-204",
+"Montr?al605 Rue Guy Apt 2", "CineyAvenue de Namur 86", "Mountain View285 Stierlin Rd", "Rotterdam38 floor - attention J. de JongWilhelminakade 91",
+"NeuenkirchHubelrain 15", "NorthglennAPT 82411625 Community Center Drive", "SingaporeOcean Financial Centre10 Collyer Quay #07-06/09",
+"Kepong2061 Jalan E5/12 Taman Ehsan", "BucaramangaCalle 105A No.21A-74 Provenza", "BellinghamBellingham4117 B Stone Crest",
+"Sewickley140 Striffler Rd", "Pleasanton4120 Morganfield Ct", "Lake Forest24552 Raymond Way #1240",
+"Petaling JayaJalan PJU 1A/3 Ara Damansara 47301D-01-02 Tower D AraGreens Residences", "Arlington Heights524 S Harvard Ave",
+"Springfield GardensKWI 11300147-29 182nd st.", "Montreal10181 Clark street", "Hong Kong26 Harbour Road Wanchai21/F China Resources Building",
+"VillajoyosaEscalera 2 Atico 10TAvenida Mestral 6", "Br?nsh?jSolr?dvej 39", "London27 Harborough Road",
+"Singapore#15-03 City Regency18 St. Michael's Road", "Greenhithe43 Maritime Close", "CONWAY1950 MERRELL DR",
+"Singapore197 Bishan Street 13 #07-569", "Singapore806 Thomson Road #05-14", "Kuala Lumpur106-A Jalan Choo Cheng Khayc/o Dai Kong Trading",
+"Dallas9311 Liptonshire Drive", "D?bendorf2Bungertweg 11", "Cedar21730 Cedar Dr NW", "SydneyL9 50 Carrington Street",
+"FrankfurtIKB Deutsche Industriebank AGEschersheimer Landstr. 121", "Parker5442 Twilight Way", "Przemy?lul. Ofiar Katynia 26",
+"KettenheimKirchgasse 1", "ISLAMABADHOUSE 293. STREET 34. BLOCK-C. PAK PWD HOUSING SOCIETY. LOHI BHER.", "Durham3919 Hope Valley Rd",
+"Old Westbury118 IU Willets Road", "Daejeon#919 N1 building291 Daehak-ro Guseong-dong Yuseong-gu", "LausannePlace P?pinet 1c/o Ifchor Capes SA",
+"Saint LouisAPT 41209 Covington Manor Ln", "Yau Tong KowloonRoom 16 Floor 36 Yung Lai House Yau Lai Estate", "Chicago512 North McClurg Ct",
+"Edison5 Banyan Court", "MaidenheadHolyport36 Stompits Road", "Philadelphia9872 Bridle Road", "SoestBeukenlaan 81",
+"HONG KONGSHEK LEI EST KWAI CHUNG N.T.RM 2209 22/F LOW BLK SHEK YAT HSE", "New York320 E 46th St Apt 30D", "Santa Ana902 S Dennis St",
+ "Belgradestan br. 11Bulevar Mihajla Pupina 199v", "Osnabr?ckAlbert-Einstein-Str. 1", "London58A Askew Crescent", "Whitesburg121 Vermillion Ave",
+  "Randers CM?llestr?de 2B 3. Tv", "New Taipei CityChengtai Road Wugu District11th floor of the 6 community No. 6 Lane 22 Section 4 ",
+  "Seodaemun-gu3rd floor 12 Jeungga-ro", "Yangpyeong-gun92 Baegankeungol-gilYangpyeong-eup",
+  "Geumcheon-guBaekwoonhanbeach Apart Ga-dong Room No.60223-10 Nambusunhwan-ro 108-gil"
+]
+console.log("アドレスは" + address1.length)
+var code = ["435-730", "46288", "28046", "11487", "04167", "N/A", "07042-4379", "", "11620", "10069-0902", "11733-3512", "560222", "13433", "13491", "06096", "12791", "21228", "60608", "10205", "670468", "H3J 2V5", "5590", "94043-4617", "3072AP", "6206", "80233", "49315", "52100", "680004", "98226", "15143-9602", "94566-4714", "92630-9000", "47301", "60005-2212", "11413", "H3L 2R8", "", "3570", "2700", "SW16 2XP", "327977", "DA9 9QW", "72034", "570197", "298189", "50460", "75238", "8051", "55011-9613", "2000", "60322", "80134", "37-700", "55234", "45710", "27707", "11568", "34141", "1003", "63125", "0", "60611", "8820", "SL6 2LE", "19115", "3762 AG", "0", "10017-3037", "92704-2213", "11070", "49076", "W12 9DW", "41858-7560", "8900", "248", "03698", "12547", "08528"
+]
+console.log("コードは" + code.length)
+var id = ["white4", "black7", "white23", "white24", "black13", "white30", "white34", "white35", "white36", "white37,black17", "white38",
+"black20", "white42", "white45", "white48,black21", "white49", "white52", "white53", "white57", "black22", "white58", "white59,black23",
+"black26", "white61", "white62", "black28", "white63", "black29", "black30", "white64", "white65", "white66", "white67", "white68", "white71",
+"white74", "white75,black32", "white76", "black33", "white77", "white78", "black34", "white79", "white80", "white81", "white83", "white84",
+ "white85", "white86,black36", "white87,black37", "white88", "white89,black38", "white90", "white91", "white92", "black39", "white93",
+ "black40", "black41", "", "black42", "white94", "white95", "white96", "white97", "black43", "white98", "white99", "white100", "white102",
+ "white103", "white104", "black44", "white105", "white106", "white107", "white3,white21,white25,white46,black10,black,18",
+  "white8,white9,white12,white14,white18,white22white,28,white31,white43,black3,black,5,black6,black9,black16",
+  "white10,white20,white41,white82,black4,black11,black12,black19,black35"
+]
+console.log("IDは" + id.length)
+var tokki = ["", "", "", "", "", "", "", "", "+6282272121189", "", "", "Please knock on the door when delivering. Thanks.", "",
+"Please leave on front of door if no appearance", "", "", "", "", "", "BLK 468 SEGAR ROAD #15-204 SINGAPORE 670468", "", "", "", "", "",
+"", "If delivering on weekends please call 9159 7957 for alternate delivery address.", "", "I need a track number. Ty.", "", "", "", "", "", "", "",
+"You can leave the package behind the house on the balcone", "", "", "", "", "", "", "", "", "", "Attn: Mr Raymond Lim", "", "", "", "", "", "",
+"Dla Rostka", "", "", "It is ok to leave the package at the side door. No signature necessary.", "",
+"I`m happy that you are going to be rich! See you in Korea", " my friend., ",
+"", "", "", "", "", "", "", "", "", "", "", "", "", "", "","成泰路4段22巷6號11樓之6 社區五股區 248", "", "", ""
+]
+console.log("特記事項は" + tokki.length)
+var length = black.length;
+
+var indexnum
+function onclicks(){
+  for (indexnum = 0; indexnum < length; indexnum++) {
+
+    if(black[indexnum] === ""){
+      blacks = ["","","","",""]
+    } else {
+      blacks = [id[indexnum], black[indexnum], '$0.00', blacknum[indexnum], '$0.00']
+    }
+
+    if(white[indexnum] === ""){
+      whites = ["","","","",""]
+    } else {
+      whites = [id[indexnum], white[indexnum], '$0.00', whitenum[indexnum], '$0.00']
+    }
+
+    if(belt[indexnum] === ""){
+      beltin = ["","","","",""]
+    } else {
+      beltin = ["", 'Belt', '$0.00', '1', '$0.00']
+    }
+
+    pdfMake.createPdf(
+      {
+      	content: [
+      		{text: 'Invoice', style: 'header', alignment: 'center'},
+      		{text: 'Thank you for your business.', alignment: 'center', margin: [0, 0, 0, 40]},
+      		{text: 'FROM : Karl-Leimon', alignment: 'right', style: 'subheader', margin: [0,0,0,10], decoration: 'underline'},
+      		{text: 'Document    #20180307000' + indexnum, alignment: 'right', color: 'grey'},
+      		{text: 'Create Date   03/07/2018', alignment: 'right', color: 'grey'},
+      		{text: 'Due Date      03/07/2018', alignment: 'right', color: 'grey'},
+      		{text: 'TO : ' + names[indexnum], decoration: 'underline', margin: [0,30,0,10], style: 'subheader'},
+      		{text: code[indexnum] + address1[indexnum]},
+          {text: city[indexnum] + ',' + country[indexnum], margin: [0,10,0,0]},
+      		{
+      			style: 'tableExample',
+      			table: {
+      			    headerRows: 1,
+      				body: [
+      					[
+      					    {text: 'Serial ID', style: 'tableHeader'},
+      					    {text: 'Description', style: 'tableHeader'},
+      					    {text: 'Price', style: 'tableHeader'},
+      					    {text: 'Qty', style: 'tableHeader'},
+      					    {text: 'Line Total', style: 'tableHeader'}
+      					],
+                blacks,
+                whites,
+                beltin
+      				]
+      			},
+      			layout: 'headerLineOnly',
+      			margin: [0,30,0,50]
+      		},
+      		{text: 'Subtotal : $0.00', alignment: 'right', style: 'subheader'},
+      		{text: 'Total : $0.00', alignment: 'right', style: 'subheader', decoration: 'underline'},
+          {text: tokki[indexnum], alignment: 'right'}
+      	],
+      	styles: {
+      		header: {
+      			fontSize: 30,
+      			bold: true,
+      			margin: [0, 0, 0, 10]
+      		},
+      		subheader: {
+      			fontSize: 16,
+      			bold: false,
+      			margin: [0, 10, 0, 5]
+      		},
+      		tableExample: {
+      			margin: [0, 5, 0, 0]
+      		},
+      		tableHeader: {
+      			bold: true,
+      			fontSize: 13,
+      			color: 'black'
+      		}
+      	}
+      }
+    ).download('Invoice' + indexnum + '.pdf');
+  }
+}
+
+</script>
+</body>
